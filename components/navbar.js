@@ -15,11 +15,21 @@ import {
   import MenuIcon from "@mui/icons-material/Menu";
   import CloseIcon from "@mui/icons-material/Close";
   import { useState } from "react";
+import { useRouter } from "next/router";
   
-  const navItems = ["Home", "About", "Services", "Contact"];
+  const navItems = [
+    { name: "Home", link: "/" },
+    { name: "About", link: "/about-us" },
+    { name: "Pricing", link: "/pricing" },
+    { name: "Contact", link: "/contact-us" }
+  ]
   
   const Navbar = () => {
+    const router = useRouter()
     const [open, setOpen] = useState(false);
+    const handleClick = (path)=>{
+        router?.push(path)
+    }
   
     return (
       <>
@@ -35,7 +45,7 @@ import {
         >
           <Toolbar sx={{ justifyContent: "space-between" }}>
             {/* Logo */}
-            <Typography variant="h6" sx={{ minWidth: "80px", fontWeight: "bold" }}>
+            <Typography variant="h6" sx={{ minWidth: "80px", fontWeight: "bold" }} onClick={()=>handleClick("/")}  >
               Logo
             </Typography>
   
@@ -50,8 +60,8 @@ import {
               }}
             >
               {navItems.map((item) => (
-                <Button key={item} sx={{ color: "#000", textTransform: "none" }}>
-                  {item}
+                <Button key={item?.name} onClick={()=>handleClick(item?.link)} sx={{ color: "#000", textTransform: "none" }}>
+                  {item?.name}
                 </Button>
               ))}
             </Box>
@@ -102,7 +112,7 @@ import {
             mb={2}
           >
             <Typography variant="h6" fontWeight="bold">
-              DALL-E AI
+              Mobile Sidebar logo
             </Typography>
             <IconButton onClick={() => setOpen(false)}>
               <CloseIcon />
@@ -111,9 +121,9 @@ import {
   
           <List>
             {navItems.map((item) => (
-              <ListItem key={item} disablePadding>
-                <ListItemButton onClick={() => setOpen(false)}>
-                  <ListItemText primary={item} />
+              <ListItem key={item?.name} disablePadding>
+                <ListItemButton onClick={() => {setOpen(false),handleClick(item?.link)}}>
+                  <ListItemText primary={item?.name} />
                 </ListItemButton>
               </ListItem>
             ))}

@@ -5,9 +5,15 @@ import {
   Button,
   Accordion,
   AccordionSummary,
-  AccordionDetails
+  AccordionDetails,
+  Container,
+  useMediaQuery,
+
 } from '@mui/material';
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import theme from './fontTheme';
 
 const faqData = [
   {
@@ -55,6 +61,8 @@ const HomeFaqSection = () => {
   const handleChange = (index) => (event, isExpanded) => {
     setExpanded(isExpanded ? index : false);
   };
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
 
   return (
     <Box
@@ -88,39 +96,59 @@ const HomeFaqSection = () => {
         </Box>
 
         {/* Right column - FAQ list */}
-        <Box sx={{ flex: 2 }}>
-          {faqData.map((item, index) => (
-            <Accordion
-              key={index}
-              expanded={expanded === index}
-              onChange={handleChange(index)}
+       <Box >
+      <Container maxWidth="md">
+       
+
+        {faqData?.map((item, index) => (
+          <Accordion
+            key={index}
+            expanded={expanded === index}
+            onChange={handleChange(index)}
+            sx={{
+              backgroundColor: "#fff",
+              border: "1px solid #ddd",
+              borderRadius: 5,
+              mb: 2,
+              boxShadow: "none",
+              "&:before": {
+                display: "none",
+              },
+            }}
+          >
+            <AccordionSummary
+              expandIcon={
+                expanded === index ? (
+                  <RemoveIcon fontSize="small" />
+                ) : (
+                  <AddIcon fontSize="small" />
+                )
+              }
               sx={{
-                border: '1px solid #ddd',
-                borderRadius: 2,
-                mb: 1,
-                boxShadow: 'none',
-                '&::before': { display: 'none' }
+                px: 2,
+                py: 1.5,
+                "& .MuiTypography-root": {
+                  fontWeight: 100,
+                  fontSize: "1rem",
+                },
               }}
             >
-              <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                <Typography fontWeight={500}>
-                  {`${index + 1}. ${item.question}`}
-                </Typography>
-              </AccordionSummary>
-
-              {item.answer && (
-                <AccordionDetails>
-                  <Typography
-                    variant="body2"
-                    sx={{ color: 'text.secondary', lineHeight: 1.8 }}
-                  >
-                    {item.answer}
-                  </Typography>
-                </AccordionDetails>
-              )}
-            </Accordion>
-          ))}
-        </Box>
+              <Typography>
+                {index + 1}. {item.question}
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails sx={{ px: 2, pt: 0, pb: 2 }}>
+              <Typography
+                variant="body2"
+                sx={{ color: "text.secondary", lineHeight: 1.7 }}
+              >
+                {item.answer}
+              </Typography>
+            </AccordionDetails>
+          </Accordion>
+        ))}
+      </Container>
+    </Box>
       </Box>
     </Box>
   );
