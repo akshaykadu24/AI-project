@@ -67,7 +67,7 @@ export const HomeBlackBox = () => {
     <Tabs
       value={activeTab}
       onChange={(e, newValue) => setActiveTab(newValue)}
-      centered
+      
       textColor="inherit"
       indicatorColor="secondary"
       variant="scrollable"

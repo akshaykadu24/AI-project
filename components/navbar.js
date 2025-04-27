@@ -77,6 +77,7 @@ import { useRouter } from "next/router";
                   textTransform: "none",
                   ":hover": { bgcolor: "#000" },
                 }}
+                onClick={()=>handleClick("/login")}
               >
                 Login
               </Button>
