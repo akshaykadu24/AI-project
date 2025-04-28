@@ -25,7 +25,7 @@ const menuItems = [
   { text: "Help Center", url: "/user/help-center", icon: <HelpOutlineIcon /> },
 ];
 
-const Sidebar = ({pageHeading}) => {
+const Sidebar = ({ pageHeading }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
@@ -126,10 +126,11 @@ const Sidebar = ({pageHeading}) => {
             <MenuIcon fontSize="large" />
           </Button>
         </Box>
-
+        {/* for desktop screen */}
         <Typography
           variant="h5"
           sx={{
+            display: { xs: "none", md: "block" },
             fontWeight: "bold",
             mb: { xs: 0, md: 0 },
             textAlign: "center",
@@ -138,6 +139,20 @@ const Sidebar = ({pageHeading}) => {
           }}
         >
           {pageHeading}
+        </Typography>
+        {/* for mobile screen */}
+        <Typography
+          variant="h5"
+          sx={{
+            display: { xs: "block", md: "none" },
+            fontWeight: "bold",
+            mb: { xs: 0, md: 0 },
+            textAlign: "center",
+            flexGrow: 1, // Push center when menu icon visible
+            // ml: { xs: 2, md: 0 },
+          }}
+        >
+          Logo{" "}
         </Typography>
 
         <DashboardProfileIcon />
