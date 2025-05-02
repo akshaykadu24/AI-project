@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import GoogleIcon from "@mui/icons-material/Google";
+import { useSession, signIn, signOut } from "next-auth/react";
 import { useRouter } from "next/router";
 
 
@@ -25,6 +26,8 @@ export default function LoginForm() {
   const handleClickShowPassword = () => setShowPassword(!showPassword);
 
   const router = useRouter();
+  const { data: session } = useSession();
+
   const handleClick = (path) => {
     router?.push(path);
   };
@@ -193,6 +196,7 @@ export default function LoginForm() {
                   py: 1.2,
                   borderRadius: 2,
                 }}
+                onClick={() => signIn("google")}
               >
                 Sign in with Google
               </Button>
